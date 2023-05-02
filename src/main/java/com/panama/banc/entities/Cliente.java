@@ -1,5 +1,6 @@
 package com.panama.banc.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -39,5 +40,14 @@ public class Cliente extends Persona{
 
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    @JsonIgnore
+    public List<Cuenta> getCuentas() {
+        return cuentas;
+    }
+
+    public void setCuentas(List<Cuenta> cuentas) {
+        this.cuentas = cuentas;
     }
 }

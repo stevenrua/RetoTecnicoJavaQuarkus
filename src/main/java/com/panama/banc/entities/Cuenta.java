@@ -1,5 +1,8 @@
 package com.panama.banc.entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,4 +63,20 @@ public class Cuenta {
         this.estado = estado;
     }
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    @JsonIgnore
+    public List<Movimientos> getMovimientos() {
+        return movimientos;
+    }
+
+    public void setMovimientos(List<Movimientos> movimientos) {
+        this.movimientos = movimientos;
+    }
 }

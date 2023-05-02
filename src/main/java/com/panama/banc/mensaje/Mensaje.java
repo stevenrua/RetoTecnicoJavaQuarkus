@@ -21,6 +21,7 @@ public class Mensaje {
     }
 
     public void mensajeErrorBD(String mensaje){
+        System.out.println(mensaje);
         String[] message = mensaje.split("Detail:");
         setError(message[0].split("ERROR:")[1]);
         setDetail(message[1]);

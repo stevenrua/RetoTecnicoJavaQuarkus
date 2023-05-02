@@ -1,6 +1,7 @@
 package com.panama.banc.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Check;
 
 import java.util.Date;
 
@@ -10,6 +11,7 @@ public class Movimientos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Date date;
+    @Check(constraints = "tipoMovimiento = 'R' OR tipoMovimiento = 'D'")
     private String tipoMovimiento;
     private double valor;
     private double saldo;
@@ -57,4 +59,11 @@ public class Movimientos {
         this.saldo = saldo;
     }
 
+    public Cuenta getCuenta() {
+        return cuenta;
+    }
+
+    public void setCuenta(Cuenta cuenta) {
+        this.cuenta = cuenta;
+    }
 }
