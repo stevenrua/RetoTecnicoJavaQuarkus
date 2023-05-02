@@ -1,8 +1,5 @@
 package com.panama.banc.entities;
-
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 

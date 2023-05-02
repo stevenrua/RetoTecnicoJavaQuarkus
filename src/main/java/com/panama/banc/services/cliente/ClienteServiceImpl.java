@@ -5,7 +5,6 @@ import com.panama.banc.repositories.cliente.ClienteRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -25,18 +24,31 @@ public class ClienteServiceImpl implements IClienteService{
     }
 
     @Override
-    public boolean findByIdentificacion(String identificacion) {
-        boolean existClient = false;
-        Optional<Cliente> cliente = clienteRepository.findByIdentificacion(identificacion);
-        if(cliente.isEmpty()) return existClient;
-        existClient = true;
-        return existClient;
-    }
-
-    @Override
     @Transactional
     public Cliente save(Cliente cliente) {
         clienteRepository.persist(cliente);
         return cliente;
+    }
+
+    @Override
+    @Transactional
+    public Cliente update(Long id, Cliente cliente) {
+        Cliente clienteById = clienteRepository.findById(id);
+        clienteById.setNombre(cliente.getNombre());
+        clienteById.setGenero(cliente.getGenero());
+        clienteById.setEdad(cliente.getEdad());
+        clienteById.setDireccion(cliente.getDireccion());
+        clienteById.setTelefono(cliente.getTelefono());
+        clienteById.setContrasena(cliente.getContrasena());
+        clienteById.setEstado(cliente.isEstado());
+        clienteById.setIdentificacion(cliente.getIdentificacion());
+        clienteRepository.persist(clienteById);
+        return clienteById;
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        clienteRepository.deleteById(id);
     }
 }

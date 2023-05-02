@@ -1,5 +1,6 @@
 package com.panama.banc.entities;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Check;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -8,6 +9,7 @@ public abstract class Persona {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
     private String nombre;
+    @Check(constraints = "genero = 'm' OR genero = 'M' OR genero = 'f' OR genero = 'F'")
     private String genero;
     private int edad;
     @Column(unique = true)
