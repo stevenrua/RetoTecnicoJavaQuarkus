@@ -2,6 +2,7 @@ package com.panama.banc.controllers.movimiento;
 
 import com.panama.banc.entities.Cuenta;
 import com.panama.banc.entities.Movimientos;
+import com.panama.banc.entities.Reporte;
 import com.panama.banc.mensaje.Mensaje;
 import com.panama.banc.services.movimiento.IMovimientoService;
 import jakarta.inject.Inject;
@@ -64,7 +65,7 @@ public class MovimientoController {
                                    @QueryParam("idCliente") Long idCliente) {
         LocalDate fechaInicio1 = LocalDate.parse(fechaInicio);
         LocalDate fechaFin1 = LocalDate.parse(fechaFin);
-        List<Object[]> cosa = movimientoService.reporte(fechaInicio1, fechaFin1, idCliente);
+        List<Reporte> cosa = movimientoService.reporte(fechaInicio1, fechaFin1, idCliente);
         return Response.ok(cosa).build();
     }
 

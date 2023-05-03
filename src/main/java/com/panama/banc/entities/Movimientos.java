@@ -12,7 +12,7 @@ public class Movimientos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate date;
-    @Check(constraints = "tipoMovimiento = 'R' OR tipoMovimiento = 'D'")
+    @Check(constraints = "tipoMovimiento = 'Retiro' OR tipoMovimiento = 'Deposito'")
     private String tipoMovimiento;
     private double valor;
     private double saldo;

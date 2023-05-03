@@ -1,6 +1,7 @@
 package com.panama.banc.services.movimiento;
 
 import com.panama.banc.entities.Movimientos;
+import com.panama.banc.entities.Reporte;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -13,5 +14,5 @@ public interface IMovimientoService {
     Movimientos save(Movimientos movimientos);
     Movimientos update(Long id, Movimientos movimientos);
     void delete(Long id);
-    List<Object[]> reporte(LocalDate fechaInicio, LocalDate fechaFin, Long idCliente);
+    List<Reporte> reporte(LocalDate fechaInicio, LocalDate fechaFin, Long idCliente);
 }

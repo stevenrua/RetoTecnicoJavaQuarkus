@@ -2,6 +2,7 @@ package com.panama.banc.services.movimiento;
 
 import com.panama.banc.entities.Cuenta;
 import com.panama.banc.entities.Movimientos;
+import com.panama.banc.entities.Reporte;
 import com.panama.banc.repositories.movimiento.MovimientoRepository;
 import com.panama.banc.services.cuenta.ICuentaService;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -32,16 +33,10 @@ public class MovimientoServiceImpl implements IMovimientoService {
     @Override
     @Transactional
     public Movimientos save(Movimientos movimiento) {
-        if(movimiento.getTipoMovimiento().equalsIgnoreCase("Retiro") ||
-                movimiento.getTipoMovimiento().equalsIgnoreCase("Deposito")){
-            movimiento.setDate(LocalDate.now());
-            realizarMovimiento(movimiento);
-            movimientoRepository.persist(movimiento);
-            return movimiento;
-        }
-        throw new IllegalArgumentException(
-                "ERROR: Tipo de operación no permitida .Detail: " + movimiento.getTipoMovimiento()
-                        + " no es una acción que se permita realizar");
+        movimiento.setDate(LocalDate.now());
+        realizarMovimiento(movimiento);
+        movimientoRepository.persist(movimiento);
+        return movimiento;
     }
 
     @Override
@@ -65,9 +60,8 @@ public class MovimientoServiceImpl implements IMovimientoService {
     }
 
     @Override
-    public List<Object[]> reporte(LocalDate fechaInicio, LocalDate fechaFin, Long idCliente) {
+    public List<Reporte> reporte(LocalDate fechaInicio, LocalDate fechaFin, Long idCliente) {
         movimientoRepository.generarReporte(fechaInicio, fechaFin, idCliente);
-        System.out.println("Entra por aquí y genera el reporte");
         return movimientoRepository.generarReporte(fechaInicio, fechaFin, idCliente);
     }
 
