@@ -9,6 +9,8 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Path("/movimiento")
@@ -53,6 +55,17 @@ public class MovimientoController {
             responseMessage.mensajeErrorBD(e.getMessage());
             return Response.ok(responseMessage).status(Response.Status.BAD_REQUEST).build();
         }
+    }
+
+    @GET
+    @Path("/reporte")
+    public Response generarReporte(@QueryParam("fechaInicio") String fechaInicio,
+                                   @QueryParam("fechaFin") String fechaFin,
+                                   @QueryParam("idCliente") Long idCliente) {
+        LocalDate fechaInicio1 = LocalDate.parse(fechaInicio);
+        LocalDate fechaFin1 = LocalDate.parse(fechaFin);
+        List<Object[]> cosa = movimientoService.reporte(fechaInicio1, fechaFin1, idCliente);
+        return Response.ok(cosa).build();
     }
 
     @PUT

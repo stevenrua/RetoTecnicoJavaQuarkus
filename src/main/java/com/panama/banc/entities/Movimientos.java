@@ -3,6 +3,7 @@ package com.panama.banc.entities;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Check;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -10,7 +11,7 @@ public class Movimientos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date date;
+    private LocalDate date;
     @Check(constraints = "tipoMovimiento = 'R' OR tipoMovimiento = 'D'")
     private String tipoMovimiento;
     private double valor;
@@ -27,11 +28,11 @@ public class Movimientos {
         this.id = id;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

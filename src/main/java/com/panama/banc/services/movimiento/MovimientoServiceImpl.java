@@ -7,6 +7,8 @@ import com.panama.banc.services.cuenta.ICuentaService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +34,7 @@ public class MovimientoServiceImpl implements IMovimientoService {
     public Movimientos save(Movimientos movimiento) {
         if(movimiento.getTipoMovimiento().equalsIgnoreCase("Retiro") ||
                 movimiento.getTipoMovimiento().equalsIgnoreCase("Deposito")){
-            movimiento.setDate(new Date());
+            movimiento.setDate(LocalDate.now());
             realizarMovimiento(movimiento);
             movimientoRepository.persist(movimiento);
             return movimiento;
@@ -60,6 +62,13 @@ public class MovimientoServiceImpl implements IMovimientoService {
     @Transactional
     public void delete(Long id) {
         movimientoRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Object[]> reporte(LocalDate fechaInicio, LocalDate fechaFin, Long idCliente) {
+        movimientoRepository.generarReporte(fechaInicio, fechaFin, idCliente);
+        System.out.println("Entra por aquí y genera el reporte");
+        return movimientoRepository.generarReporte(fechaInicio, fechaFin, idCliente);
     }
 
     private void realizarMovimiento(Movimientos movimiento){
