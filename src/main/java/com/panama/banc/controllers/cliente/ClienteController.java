@@ -17,6 +17,10 @@ public class ClienteController {
     @Inject
     private IClienteService clienteService;
 
+    public ClienteController(IClienteService clienteService) {
+        this.clienteService = clienteService;
+    }
+
     @GET
     public Response listarClientes() {
         List<Cliente> clientes = clienteService.findAll();

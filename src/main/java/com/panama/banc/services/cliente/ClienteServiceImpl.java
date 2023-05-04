@@ -12,6 +12,11 @@ public class ClienteServiceImpl implements IClienteService{
 
     @Inject
     private ClienteRepository clienteRepository;
+
+    public ClienteServiceImpl(ClienteRepository clienteRepository) {
+        this.clienteRepository = clienteRepository;
+    }
+
     @Override
     public List<Cliente> findAll() {
         return clienteRepository.listAll();

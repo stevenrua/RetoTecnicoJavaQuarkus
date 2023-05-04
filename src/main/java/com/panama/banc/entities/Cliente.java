@@ -5,25 +5,22 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Cliente extends Persona{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String contrasena;
     private boolean estado;
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cuenta> cuentas = new ArrayList<>();
 
-    @Override
-    public Long getId() {
-        return id;
+    public Cliente() {
     }
 
-    @Override
-    public void setId(Long id) {
-        this.id = id;
+    public Cliente(Long id, String nombre, String genero, int edad, String identificacion, String direccion, String telefono, String contrasena, boolean estado) {
+        super(id, nombre, genero, edad, identificacion, direccion, telefono);
+        this.contrasena = contrasena;
+        this.estado = estado;
     }
 
     public String getContrasena() {
@@ -49,5 +46,26 @@ public class Cliente extends Persona{
 
     public void setCuentas(List<Cuenta> cuentas) {
         this.cuentas = cuentas;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "contrasena='" + contrasena + '\'' +
+                ", estado=" + estado +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Cliente cliente)) return false;
+        if (!super.equals(o)) return false;
+        return isEstado() == cliente.isEstado() && getContrasena().equals(cliente.getContrasena()) && Objects.equals(getCuentas(), cliente.getCuentas());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getContrasena(), isEstado(), getCuentas());
     }
 }
