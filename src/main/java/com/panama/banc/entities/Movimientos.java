@@ -2,9 +2,7 @@ package com.panama.banc.entities;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.Check;
-
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 public class Movimientos {

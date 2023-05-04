@@ -2,8 +2,6 @@ package com.panama.banc.mensaje;
 
 public class Mensaje {
     private String error;
-    private String detail;
-
     public String getError() {
         return error;
     }
@@ -12,23 +10,12 @@ public class Mensaje {
         this.error = error;
     }
 
-    public String getDetail() {
-        return detail;
-    }
-
-    public void setDetail(String detail) {
-        this.detail = detail;
-    }
-
     public void mensajeErrorBD(String mensaje){
-        System.out.println(mensaje);
-        String[] message = mensaje.split("Detail:");
-        setError(message[0].split("ERROR:")[1]);
-        setDetail(message[1]);
+        setError(mensaje);
+
     }
 
     public void mensajeNotFound(String mensaje){
         setError(mensaje);
-        setDetail(mensaje);
     }
 }

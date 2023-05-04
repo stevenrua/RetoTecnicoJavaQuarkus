@@ -50,7 +50,7 @@ public class CuentaController {
             return Response.ok(createdCuenta).build();
         }catch (Exception e){
             Mensaje responseMessage = new Mensaje();
-            responseMessage.mensajeErrorBD(e.getMessage());
+            responseMessage.mensajeErrorBD(e.getCause().getMessage());
             return Response.ok(responseMessage).status(Response.Status.BAD_REQUEST).build();
         }
     }
@@ -92,7 +92,7 @@ public class CuentaController {
             responseMessage.mensajeNotFound(message);
             return Response.ok(responseMessage).build();
         }catch (Exception e){
-            responseMessage.mensajeErrorBD(e.getMessage());
+            responseMessage.mensajeErrorBD(e.getCause().getCause().getCause().getMessage());
             return Response.ok(responseMessage).status(Response.Status.BAD_REQUEST).build();
         }
     }

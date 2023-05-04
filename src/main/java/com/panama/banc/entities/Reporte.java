@@ -1,11 +1,9 @@
 package com.panama.banc.entities;
 
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 
 public class Reporte {
-    private Date Fecha;
+    private LocalDate Fecha;
     private String Cliente;
     private int NumeroCuenta;
     private String Tipo;
@@ -14,7 +12,7 @@ public class Reporte {
     private double Movimiento;
     private double SaldoDisponible;
 
-    public Reporte(Date fecha, String cliente, int numeroCuenta, String tipo, double saldoInicial, boolean estado, double movimiento, double saldoDisponible) {
+    public Reporte(LocalDate fecha, String cliente, int numeroCuenta, String tipo, double saldoInicial, boolean estado, double movimiento, double saldoDisponible) {
         Fecha = fecha;
         Cliente = cliente;
         NumeroCuenta = numeroCuenta;
@@ -28,11 +26,11 @@ public class Reporte {
     public Reporte() {
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return Fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         Fecha = fecha;
     }
 

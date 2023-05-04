@@ -1,8 +1,6 @@
 package com.panama.banc.controllers.movimiento;
 
-import com.panama.banc.entities.Cuenta;
 import com.panama.banc.entities.Movimientos;
-import com.panama.banc.entities.Reporte;
 import com.panama.banc.mensaje.Mensaje;
 import com.panama.banc.services.movimiento.IMovimientoService;
 import jakarta.inject.Inject;
@@ -10,8 +8,6 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Path("/movimiento")
@@ -41,7 +37,7 @@ public class MovimientoController {
                 return Response.ok(responseMessage).status(Response.Status.NOT_FOUND).build();
             return Response.ok(movimiento).build();
         }catch (Exception e){
-            responseMessage.mensajeNotFound(e.getMessage());
+            responseMessage.mensajeNotFound(e.getCause().getCause().getCause().getMessage());
             return Response.ok(responseMessage).status(Response.Status.CONFLICT).build();
         }
     }
@@ -56,17 +52,6 @@ public class MovimientoController {
             responseMessage.mensajeErrorBD(e.getMessage());
             return Response.ok(responseMessage).status(Response.Status.BAD_REQUEST).build();
         }
-    }
-
-    @GET
-    @Path("/reporte")
-    public Response generarReporte(@QueryParam("fechaInicio") String fechaInicio,
-                                   @QueryParam("fechaFin") String fechaFin,
-                                   @QueryParam("idCliente") Long idCliente) {
-        LocalDate fechaInicio1 = LocalDate.parse(fechaInicio);
-        LocalDate fechaFin1 = LocalDate.parse(fechaFin);
-        List<Reporte> cosa = movimientoService.reporte(fechaInicio1, fechaFin1, idCliente);
-        return Response.ok(cosa).build();
     }
 
     @PUT
@@ -85,7 +70,7 @@ public class MovimientoController {
 
         }catch (Exception e){
             Mensaje responseMessage = new Mensaje();
-            responseMessage.mensajeErrorBD(e.getMessage());
+            responseMessage.mensajeErrorBD(e.getCause().getCause().getCause().getMessage());
             return Response.ok(responseMessage).status(Response.Status.BAD_REQUEST).build();
         }
     }
@@ -106,7 +91,7 @@ public class MovimientoController {
             responseMessage.mensajeNotFound(message);
             return Response.ok(responseMessage).build();
         }catch (Exception e){
-            responseMessage.mensajeErrorBD(e.getMessage());
+            responseMessage.mensajeErrorBD(e.getCause().getCause().getCause().getMessage());
             return Response.ok(responseMessage).status(Response.Status.BAD_REQUEST).build();
         }
     }
