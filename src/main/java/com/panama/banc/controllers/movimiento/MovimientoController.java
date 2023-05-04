@@ -70,7 +70,7 @@ public class MovimientoController {
 
         }catch (Exception e){
             Mensaje responseMessage = new Mensaje();
-            responseMessage.mensajeErrorBD(e.getCause().getCause().getCause().getMessage());
+            responseMessage.mensajeErrorBD(e.getMessage());
             return Response.ok(responseMessage).status(Response.Status.BAD_REQUEST).build();
         }
     }
