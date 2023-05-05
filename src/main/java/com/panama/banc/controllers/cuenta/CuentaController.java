@@ -51,7 +51,7 @@ public class CuentaController {
     public Response crearCuenta(Cuenta cuenta) {
         try{
             Cuenta createdCuenta = cuentaService.save(cuenta);
-            return Response.ok(createdCuenta).build();
+            return Response.ok(createdCuenta).status(Response.Status.CREATED).build();
         }catch (Exception e){
             Mensaje responseMessage = new Mensaje();
             responseMessage.mensajeErrorBD(e.getCause().getMessage());
@@ -65,7 +65,7 @@ public class CuentaController {
         try{
             Cuenta cuentaById = cuentaService.findById(id);
             if(cuentaById == null){
-                String message = "Cuenta con ese Id no encontrado";
+                String message = "Cuenta con ese Id no encontrada";
                 Mensaje responseMessage = new Mensaje();
                 responseMessage.mensajeNotFound(message);
                 return Response.ok(responseMessage).status(Response.Status.NOT_FOUND).build();
@@ -83,7 +83,7 @@ public class CuentaController {
     @DELETE
     @Path("/{id}")
     public Response deleteCuenta(@PathParam("id") Long id){
-        String message = "Cuenta con ese Id no encontrado";
+        String message = "Cuenta con ese Id no encontrada";
         Mensaje responseMessage = new Mensaje();
         responseMessage.mensajeNotFound(message);
         try{
