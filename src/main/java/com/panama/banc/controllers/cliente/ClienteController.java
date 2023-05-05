@@ -50,7 +50,7 @@ public class ClienteController {
     public Response crearCliente(Cliente cliente) {
         try{
             Cliente createdCliente = clienteService.save(cliente);
-            return Response.ok(createdCliente).build();
+            return Response.status(Response.Status.CREATED).entity(createdCliente).build();
         }catch (Exception e){
             Mensaje responseMessage = new Mensaje();
             responseMessage.mensajeErrorBD(e.getCause().getCause().getCause().getMessage());

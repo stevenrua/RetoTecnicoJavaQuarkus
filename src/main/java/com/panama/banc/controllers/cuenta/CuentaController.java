@@ -18,6 +18,10 @@ public class CuentaController {
     @Inject
     private ICuentaService cuentaService;
 
+    public CuentaController(ICuentaService cuentaService) {
+        this.cuentaService = cuentaService;
+    }
+
     @GET
     public Response listarCuentas() {
         List<Cuenta> cuentas = cuentaService.findAll();

@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Cuenta {
@@ -16,6 +17,17 @@ public class Cuenta {
     private String tipoCuenta;
     private double saldoInicial;
     private boolean estado;
+
+    public Cuenta() {}
+
+    public Cuenta(Long id, int numeroCuenta, String tipoCuenta, double saldoInicial, boolean estado, Cliente cliente) {
+        this.id = id;
+        this.numeroCuenta = numeroCuenta;
+        this.tipoCuenta = tipoCuenta;
+        this.saldoInicial = saldoInicial;
+        this.estado = estado;
+        this.cliente = cliente;
+    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Cliente cliente;
@@ -78,5 +90,29 @@ public class Cuenta {
 
     public void setMovimientos(List<Movimientos> movimientos) {
         this.movimientos = movimientos;
+    }
+
+    @Override
+    public String toString() {
+        return "Cuenta{" +
+                "id=" + id +
+                ", numeroCuenta=" + numeroCuenta +
+                ", tipoCuenta='" + tipoCuenta + '\'' +
+                ", saldoInicial=" + saldoInicial +
+                ", estado=" + estado +
+                ", cliente=" + cliente +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Cuenta cuenta)) return false;
+        return getNumeroCuenta() == cuenta.getNumeroCuenta() && Double.compare(cuenta.getSaldoInicial(), getSaldoInicial()) == 0 && isEstado() == cuenta.isEstado() && getId().equals(cuenta.getId()) && getTipoCuenta().equals(cuenta.getTipoCuenta()) && getCliente().equals(cuenta.getCliente());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getNumeroCuenta(), getTipoCuenta(), getSaldoInicial(), isEstado(), getCliente());
     }
 }

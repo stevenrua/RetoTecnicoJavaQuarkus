@@ -13,6 +13,11 @@ public class CuentaServiceImpl implements ICuentaService {
 
     @Inject
     private CuentaRepository cuentaRepository;
+
+    public CuentaServiceImpl(CuentaRepository cuentaRepository) {
+        this.cuentaRepository = cuentaRepository;
+    }
+
     @Override
     public List<Cuenta> findAll() {
         return cuentaRepository.listAll();

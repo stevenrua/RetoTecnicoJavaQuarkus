@@ -7,7 +7,6 @@ import com.panama.banc.services.cuenta.ICuentaService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -68,7 +67,7 @@ public class MovimientoServiceImpl implements IMovimientoService {
             double saldoActual = (tipoMovimiento.equalsIgnoreCase("Retiro")) ?
             (comprobarMovimiento(movimiento, saldoCuenta))
                     : (saldoCuenta + movimiento.getValor());
-            if (saldoActual == 0.0) {
+            if (saldoActual < 0) {
                 throw new IllegalArgumentException(
                         "Saldo Insificiente, Tiene un saldo de " + saldoCuenta
                                 + ", insuficiente para realizar el retiro");
@@ -81,6 +80,6 @@ public class MovimientoServiceImpl implements IMovimientoService {
 
     public double comprobarMovimiento(Movimientos movimiento, double saldoCuenta){
         boolean saldoSuficiente = (saldoCuenta == 0 || (saldoCuenta - movimiento.getValor()) < 0) ? false : true;
-        return (saldoSuficiente == true) ? (saldoCuenta - movimiento.getValor()) : 0.0;
+        return (saldoSuficiente == true) ? (saldoCuenta - movimiento.getValor()) : 0;
     }
 }
